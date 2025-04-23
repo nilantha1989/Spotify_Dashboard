@@ -1,0 +1,32 @@
+table 'Date Table'
+	lineageTag: 0f09f9c1-3571-43f4-bd8f-2f2acc10cc5e
+
+	column Date
+		formatString: Short Date
+		lineageTag: 67f59c96-c93a-4b3e-8831-9af8b9eb1376
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 304893a9-1925-4b46-9ff3-78c8f1e8efdd
+			defaultHierarchy: LocalDateTable_b26255b2-e396-4f1d-b0d9-13b8ba0eb214.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year = YEAR('Date Table'[Date])
+		formatString: 0
+		lineageTag: c6e1143b-ca17-43aa-9bb9-91a90ba9b24a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date Table' = calculated
+		mode: import
+		source = CALENDAR(MIN(spotify_history[Track Played Date]),MAX(spotify_history[Track Played Date]))
+
+	annotation PBI_Id = 14b8584bd37d41df99af14ab15766601
+

@@ -1,9 +1,24 @@
 model Model
 	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
 
 annotation PBI_ProTooling = ["DevMode"]
 
 annotation PBIDesktopVersion = 2.139.1678.0 (24.12)+2a034ab280bddf891eb7bb9ebfe6996f9c3a3196
+
+annotation PBI_QueryOrder = ["spotify_history"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table spotify_history
+ref table DateTableTemplate_b0ca9b0e-6186-4b32-ab15-0bfcbb8328f9
+ref table LocalDateTable_df41c0c1-3c6d-4c8e-acf5-848b8c9bf444
+ref table 'Date Table'
+ref table LocalDateTable_b26255b2-e396-4f1d-b0d9-13b8ba0eb214
 
 ref cultureInfo en-US
 

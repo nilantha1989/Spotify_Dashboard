@@ -7,7 +7,34 @@
         "x": 0,
         "y": 0
       },
-      "nodes": [],
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 117
+          },
+          "nodeIndex": "spotify_history",
+          "nodeLineageTag": "ec99dbd2-b6cd-466d-b37d-f0935232b8ed",
+          "size": {
+            "height": 426,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 358,
+            "y": 138
+          },
+          "nodeIndex": "Date Table",
+          "nodeLineageTag": "0f09f9c1-3571-43f4-bd8f-2f2acc10cc5e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
       "name": "All tables",
       "zoomValue": 100,
       "pinKeyFieldsToTop": false,

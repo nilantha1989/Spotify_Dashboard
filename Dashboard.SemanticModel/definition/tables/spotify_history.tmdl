@@ -1,0 +1,135 @@
+table spotify_history
+	lineageTag: ec99dbd2-b6cd-466d-b37d-f0935232b8ed
+
+	column spotify_track_uri
+		dataType: string
+		lineageTag: 912ff969-75e1-4d55-a817-003f9dd0e76c
+		summarizeBy: none
+		sourceColumn: spotify_track_uri
+
+		annotation SummarizationSetBy = Automatic
+
+	column ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fd403b66-73bc-4d74-b204-65eccbf35644
+		summarizeBy: none
+		sourceColumn: ts
+
+		variation Variation
+			isDefault
+			relationship: 7524f20c-b2d0-4ad2-91ed-1017eccbd242
+			defaultHierarchy: LocalDateTable_df41c0c1-3c6d-4c8e-acf5-848b8c9bf444.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: de4fe131-10a3-4869-a572-ea712b56549c
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column ms_played
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ed201f8-78ae-4571-89bd-19948444ae29
+		summarizeBy: sum
+		sourceColumn: ms_played
+
+		annotation SummarizationSetBy = Automatic
+
+	column track_name
+		dataType: string
+		lineageTag: 12b1bb63-bb7c-4370-8a4b-cf5dd324ceb7
+		summarizeBy: none
+		sourceColumn: track_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column artist_name
+		dataType: string
+		lineageTag: 45257457-8429-406c-b42d-3f3073d4c769
+		summarizeBy: none
+		sourceColumn: artist_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column album_name
+		dataType: string
+		lineageTag: ee8eeb26-7476-4e80-af9a-c2ead82cc4f3
+		summarizeBy: none
+		sourceColumn: album_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_start
+		dataType: string
+		lineageTag: fb6a6fec-d038-4da3-9562-06769cf8016e
+		summarizeBy: none
+		sourceColumn: reason_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_end
+		dataType: string
+		lineageTag: bf91a7c3-5217-4ad0-83f0-71af0a36ede4
+		summarizeBy: none
+		sourceColumn: reason_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column shuffle
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8219395c-cf87-45a2-ae2f-230ebe7a4891
+		summarizeBy: none
+		sourceColumn: shuffle
+
+		annotation SummarizationSetBy = Automatic
+
+	column skipped
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 48a8a7c2-8cd3-476b-9291-c9ad65558a59
+		summarizeBy: none
+		sourceColumn: skipped
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Track Played Date' = DATE(YEAR(spotify_history[ts]),MONTH(spotify_history[ts]),DAY(spotify_history[ts]))
+		formatString: Short Date
+		lineageTag: c05b3bd1-6e0a-4bce-85f6-1986e824b479
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Track Played Time' = FORMAT(spotify_history[ts],"HH:MM:SS")
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 056ad37e-97ed-4661-a4d0-7148d5785a7c
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	partition spotify_history = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Power BI\Projects\Project 6_Spotify\Spotify_Dashboard\spotify_history.csv"),[Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"spotify_track_uri", type text}, {"ts", type datetime}, {"platform", type text}, {"ms_played", Int64.Type}, {"track_name", type text}, {"artist_name", type text}, {"album_name", type text}, {"reason_start", type text}, {"reason_end", type text}, {"shuffle", type logical}, {"skipped", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
