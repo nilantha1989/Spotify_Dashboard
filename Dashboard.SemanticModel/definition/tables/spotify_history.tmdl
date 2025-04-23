@@ -1,6 +1,10 @@
 table spotify_history
 	lineageTag: ec99dbd2-b6cd-466d-b37d-f0935232b8ed
 
+	measure 'No of Albums' = DISTINCTCOUNT(spotify_history[album_name])
+		formatString: 0
+		lineageTag: fb734b77-984d-4c9f-9e2c-32a58fa713db
+
 	column spotify_track_uri
 		dataType: string
 		lineageTag: 912ff969-75e1-4d55-a817-003f9dd0e76c
